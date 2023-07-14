@@ -10,10 +10,7 @@ public class SecurityConstatns {
             "/public/**"
     };
 
-    protected static final String[] CUSTOM_AUTH_WHITELIST = {
-            // --- this app
-            "/app/public/**"
-    };
+
 
     /** Swagger URL  */
     private static final String[] SWAGGER_LIST = {
@@ -39,6 +36,12 @@ public class SecurityConstatns {
     public static final String ROOT_URL = "/";
     public static final String API_NO_AUTH_URL = "/api/v1/**";
 
+
+        protected static final String[] CUSTOM_AUTH_WHITELIST = {
+            // --- this app
+            "/app/public/**",
+            API_NO_AUTH_URL
+    };
 
     // /** static 자원이외의 허용할 url */
     // private static final String[] AUTH_WHITELIST = {

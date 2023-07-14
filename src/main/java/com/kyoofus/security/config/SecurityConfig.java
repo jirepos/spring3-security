@@ -95,7 +95,7 @@ public class SecurityConfig extends SecurityConstatns {
     public SecurityFilterChain apiFilterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
         // AuthenticationManger를 파라미터로 주입
         http
-                .securityMatcher("/app/**")
+                .securityMatcher("/app/**", "/api/v1/**")
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(CUSTOM_AUTH_WHITELIST).permitAll() // 인증하지 않는다.
                         .anyRequest().authenticated());
@@ -121,16 +121,21 @@ public class SecurityConfig extends SecurityConstatns {
         // ConfigFormAuthentication.disalbeFormLogin(http);
         ConfigFormAuthentication.defaultFormLoginLogout(http);
         // ConfigFormAuthentication.customFormLogin(http);
-        // ConfigOAuthAuthentication.oidcLogin(http
-        //         , this.customOAuth2UserService
-        //         , this.customOidcUserService
-        //         , this.authSuccessHandler
-        //         , this.authFailHandler);
         // ConfigLogout.logout(http);
+        // this.configOauth(http);
         ConfigHeaders.headers(http);
         ConfigSession.session(http);
         ConfigExceptionHandling.exceptionHandling(http);
         return http.build();
     }//:
+
+    
+    private void configOauth(HttpSecurity http) throws Exception {
+        ConfigOAuthAuthentication.oidcLogin(http
+                , this.customOAuth2UserService
+                , this.customOidcUserService
+                , this.authSuccessHandler
+                , this.authFailHandler);
+    }
 
 }/// ~
