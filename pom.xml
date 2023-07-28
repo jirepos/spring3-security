@@ -132,6 +132,45 @@
             <artifactId>therapi-runtime-javadoc</artifactId>
             <version>0.15.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+
+        <!-- https://search.maven.org/artifact/com.github.f4b6a3/ulid-creator -->
+        <dependency>
+        <groupId>com.github.f4b6a3</groupId>
+        <artifactId>ulid-creator</artifactId>
+        <version>5.2.0</version>
+        </dependency>
+
+        <!-- Apache common, File Upload-->
+        <!-- 
+            commons-fileupload 1.4가 최신임. 의존하는 commons-io 2.2에 취약점 있음 
+            업로드 동작에 문제 있으면 exclusion 제외해야 함 
+        -->
+        <!-- <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency> -->
+
+
+
+
 
 
     </dependencies>

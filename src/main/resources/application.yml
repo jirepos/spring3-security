@@ -20,6 +20,12 @@ spring:
   mustache:
     prefix: classpath:/templates/mustache/
     suffix: 
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+  
 
   # freemarker:
   #   suffix: .ftl
