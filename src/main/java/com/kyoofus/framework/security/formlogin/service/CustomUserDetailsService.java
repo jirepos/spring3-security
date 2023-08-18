@@ -1,13 +1,20 @@
 package com.kyoofus.framework.security.formlogin.service;
 
 
-import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.kyoofus.framework.security.enums.Role;
+import com.nimbusds.openid.connect.sdk.claims.UserInfo;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * 스프링 시큐리티에서 Form Login 사용 시 사용자 인증 서비스이다. 
@@ -39,16 +46,16 @@ public class CustomUserDetailsService implements UserDetailsService  {
         // 권한을 String으로 변환한다. 
         // 적절한 사용자 권한을 설정한다
         // 사용자 정보를 UserDetails 타입으로 변환한다.
-//        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(Role.ADMIN.getValue());  // ADMIN
-//        return User.builder()
-//                .username(username)
-//                // 사용자를 등록할 때 패스워드는 암호화 되어 저장이 되어야 한다.
-//                // 패스워드를 암호화 하기 위해서는 Spring Security가 사용하는 동일한  PasswordEncoder를 사용해야 한다.
-//                // 실제 개발에서는 encode() 하지 않는다. 즉, DB에서 조회한 값 그대로 설정한다.
-//                .password( passwordEncoder.encode("1234"))
-//                .authorities(authority)
-//                .build();
-        return null;
+       SimpleGrantedAuthority authority = new SimpleGrantedAuthority(Role.ADMIN.getValue());  // ADMIN
+       return User.builder()
+               .username(username)
+               // 사용자를 등록할 때 패스워드는 암호화 되어 저장이 되어야 한다.
+               // 패스워드를 암호화 하기 위해서는 Spring Security가 사용하는 동일한  PasswordEncoder를 사용해야 한다.
+               // 실제 개발에서는 encode() 하지 않는다. 즉, DB에서 조회한 값 그대로 설정한다.
+               .password( passwordEncoder.encode("1234"))
+               .authorities(authority)
+               .build();
+        // return null;
     }
 
 }///~

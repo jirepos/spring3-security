@@ -1,13 +1,14 @@
 package com.kyoofus.framework.security.config;
 
+import com.kyoofus.framework.core.util.YamlPropertyUtil;
 public class SecurityConstatns {
-
-
+//     protected static String context = YamlPropertyUtil.getProperty("server.servlet.context-path", "iam");
+    protected static String context = "";
     /** 정적자원 리소스 URL 패턴 */
     protected  static final String[] STATIC_RESOURCES_WHITELIST = {
-            "/static/**",
-            "/resources/**",
-            "/public/**"
+           context + "/static/**",
+           context +  "/resources/**",
+           context +  "/public/**"
     };
 
 
@@ -15,26 +16,26 @@ public class SecurityConstatns {
     /** Swagger URL  */
     private static final String[] SWAGGER_LIST = {
             // -- swagger ui
-            "/swagger-resources/**",
-            "/swagger-ui.html",
-            "/swagger-ui/**",
-            "/v3/api-docs/**",
-            "/v3/api-docs",
-            "/webjars/**"
+            context + "/swagger-resources/**",
+            context + "/swagger-ui.html",
+            context + "/swagger-ui/**",
+            context + "/v3/api-docs/**",
+            context + "/v3/api-docs",
+            context + "/webjars/**"
     };
 
     // -- Form login
-    public static final String FORM_LOGIN_URL = "/formlogin";
-    public static final String SPRING_DEFAULT_FORM_LOGIN_URL = "/login";
-    public static final String SPRING_DEFAULT_FORM_LOGIN_PROC_URL = "/login_proc";
-    public static final String SPRING_DEFAULT_LOGOUT_URL = "/logout";
+    public static final String FORM_LOGIN_URL = context + "/formlogin";
+    public static final String SPRING_DEFAULT_FORM_LOGIN_URL = context + "/login";
+    public static final String SPRING_DEFAULT_FORM_LOGIN_PROC_URL = context + "/login_proc";
+    public static final String SPRING_DEFAULT_LOGOUT_URL = context +  "/logout";
 
-    public static final String DEFAULT_SUCCESS_URL = "/home";
+    public static final String DEFAULT_SUCCESS_URL = context + "/home";
     public static final String JSESSIONID = "JSESSIONID";
-    public static final String LOGIN_FAIL_URL = "/loginfail";
+    public static final String LOGIN_FAIL_URL = context + "/loginfail";
 
     public static final String ROOT_URL = "/";
-    public static final String API_NO_AUTH_URL = "/api/v1/**";
+    public static final String API_NO_AUTH_URL = context + "/api/v1/**";
 
 
         protected static final String[] CUSTOM_AUTH_WHITELIST = {

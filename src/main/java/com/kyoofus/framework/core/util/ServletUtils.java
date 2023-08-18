@@ -10,6 +10,9 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.kyoofus.framework.core.exception.AjaxExceptoin;
+import com.kyoofus.framework.core.exception.ErrorCode;
+
 import java.util.Optional;
 
 /**
@@ -30,6 +33,31 @@ public class ServletUtils {
         }
     }
 
+    /**
+     * HttpServletResponse 반환한다.
+     */
+    public static Optional<HttpServletResponse> getResponse() {
+        RequestAttributes rattr = RequestContextHolder.getRequestAttributes();
+        
+        if(rattr == null) {
+            return Optional.empty();
+        }else {
+            HttpServletResponse response = ((ServletRequestAttributes)rattr).getResponse();
+            return Optional.ofNullable(response); 
+        }
+    }
+
+    public static void redirect(String url ) {
+        Optional<HttpServletResponse> opt =  ServletUtils.getResponse();
+        try {
+           if(opt.isPresent()){ 
+               ((HttpServletResponse)opt.get()).sendRedirect(url);
+            }
+        }catch(Exception e) {
+            throw new AjaxExceptoin(e.getMessage(), ErrorCode.INTERAL_SERVER_ERROR);
+        }
+        // 예외 처리 필요 
+    }//:
 
     /** 권한없음(401: 인증자격증명 없음) 페이지를 생성하여 반환한다. */
     public static void responseUnauthorized(@NotNull HttpServletRequest request,

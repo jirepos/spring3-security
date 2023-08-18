@@ -1,5 +1,6 @@
 package com.kyoofus.tutorial.request;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kyoofus.tutorial.request.dto.AccessTokenDto;
 import com.kyoofus.tutorial.request.dto.TutorialDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -61,6 +63,21 @@ public class TutorialController {
     return new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.OK);
   }// :
 
+
+  @GetMapping(value = "get-image")
+  public ResponseEntity<byte[]> getImage(HttpServletRequest request, HttpServletResponse response, @RequestParam String fileName) 
+      throws IOException {
+    HttpHeaders headers = new HttpHeaders();
+
+    String uploadDir = "f:/upload"; 
+    String filePath = uploadDir + "/" + fileName;
+    FileInputStream fis = new FileInputStream(filePath);
+    headers.setContentType(MediaType.APPLICATION_OCTET_STREAM); // Mime Type을 image/png로 설정
+    headers.set("Content-Disposition", "attachment;filename=" + fileName);
+    return new ResponseEntity<byte[]>(IOUtils.toByteArray(fis), headers, HttpStatus.OK);
+  }// :
+
+
   /** JavaScript 리턴 */
   @GetMapping("/fetch-javascript")
   public ResponseEntity<String> fetchJavascript(HttpServletRequest request, HttpServletResponse response) {
@@ -89,6 +106,22 @@ public class TutorialController {
     dto.setAge(age);
     return new ResponseEntity<TutorialDto>(dto, HttpStatus.OK);
   }// :
+
+
+  /** @RequestParam 사용 */
+  @GetMapping("/get-access-token/{authCode}")
+  public ResponseEntity<AccessTokenDto> getAccessToken(HttpServletRequest request, HttpServletResponse response,
+      @PathVariable("authCode") String authCode) {
+
+        AccessTokenDto dto = AccessTokenDto.builder()
+                                 .userEmail("aaa@gmaIl.com")
+                                 .userName("ejin")
+                                 .userId("aabbcc")
+                                 .accessToken("AbcEf*ns9Sx")
+                                 .build(); 
+    return new ResponseEntity<AccessTokenDto>(dto, HttpStatus.OK);
+  }// :
+
 
   /** applicatin/json 반환 */
   @PostMapping("/request-body")

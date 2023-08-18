@@ -32,10 +32,12 @@ public class DispatcherConfig implements WebMvcConfigurer {
   public void addCorsMappings(org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
     registry.addMapping("/**")
             // .allowedOrigins("http://localhost:5173")
-            .allowedOrigins("http://ejin.com:5173")
+            .allowedOrigins("http://ejin.com" ) //, "http://ejin.com:5501", "http://ejin.com:5500")
             // .allowedOriginPatterns("*")
-            .allowedMethods("*").allowedHeaders("*")
-        .allowCredentials(true);
+            // .allowedOriginPatterns("http://localhost:*")
+            .allowedMethods("*")
+            .allowedHeaders("*")
+            .allowCredentials(true);
   }
 
 }/// ~
